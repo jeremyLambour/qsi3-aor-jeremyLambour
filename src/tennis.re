@@ -113,11 +113,16 @@ let string_of_score: score => string =
       ++ "Joueur 2: "
       ++ string_of_point(pointData.playerTwo)
     | Forty(fortyData) =>
-      string_of_player(fortyData.player)
-      ++ ":40"
-      ++ "Joueur 2: "
-      ++ string_of_point(fortyData.otherPlayerPoint)
-    | Deuce => "Joueur 1:40" ++ "Joueur 2:40"
+      fortyData.player == PlayerOne ?
+        string_of_player(fortyData.player)
+        ++ ":40/"
+        ++ string_of_point(fortyData.otherPlayerPoint)
+        ++ ":Joueur 2" :
+        "Joueur 1 :"
+        ++ string_of_point(fortyData.otherPlayerPoint)
+        ++ string_of_player(fortyData.player)
+        ++ " :Joueur 2"
+    | Deuce => "Joueur 1:40" ++ "40:Joueur 2"
     | Advantage(player) => string_of_player(player)
     | Game(player) => string_of_player(player)
     };
